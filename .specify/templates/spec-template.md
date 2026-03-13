@@ -100,7 +100,36 @@
 - Define explicit permissions and UX differences for Employee, Manager, Admin,
   and Leadership.
 - Each role MUST have at least one acceptance scenario tied to a business goal.
+- Each role MUST have one end-to-end journey from entry point to completed outcome.
 - Any shared screen with role-specific behavior MUST document visibility/edit rules.
+
+### UX Interaction Consistency Requirements *(mandatory for this project)*
+
+- Forms MUST use consistent validation timing, message style, and field-level feedback.
+- Navigation patterns (menus, breadcrumbs, tabs, back actions) MUST be consistent
+  across related modules.
+- Equivalent user actions MUST produce equivalent interaction behavior unless an
+  exception is documented in the spec.
+
+### System Feedback & Screen-State Requirements *(mandatory for this project)*
+
+- All write actions MUST define user feedback for success, failure, and pending
+  validation states.
+- Every data-driven screen MUST define loading, empty, and error states.
+- Error states MUST include actionable next steps when recovery is possible.
+
+### Analytics Readability Requirements *(mandatory when analytics are present)*
+
+- Dashboards MUST specify chart labels, legends, thresholds, and summary guidance
+  for decision-making clarity.
+- Metrics and filters MUST map to role-relevant decisions.
+
+### Business Outcome Alignment Requirements *(mandatory for this project)*
+
+- Every feature MUST map to one or more business outcomes:
+  workforce visibility, project staffing effectiveness, or skill development progress.
+- The spec MUST explain how the user journey and system behavior support those
+  outcomes.
 
 ### Data & Service Contract Requirements *(mandatory for this project)*
 
@@ -138,3 +167,7 @@
   independently testable acceptance criteria.
 - **SC-007**: Analytics visualizations are implemented with Recharts or Chart.js
   using reusable wrappers, with no direct raw payload binding in UI components.
+- **SC-008**: All data-driven screens demonstrate loading, empty, and error states,
+  and all write actions demonstrate success, failure, and pending validation feedback.
+- **SC-009**: Role journeys and analytics interactions are validated against at least
+  one declared business outcome for each delivered story.

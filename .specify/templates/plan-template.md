@@ -37,6 +37,12 @@
 - [ ] State management approach selected (Context API or Zustand) and justified
 - [ ] Analytics approach selected (Recharts or Chart.js) with reusable wrappers
 - [ ] Role-based UX coverage defined for Employee, Manager, Admin, Leadership
+- [ ] End-to-end journey documented for each role with decision points and outcomes
+- [ ] Shared interaction patterns defined for forms, navigation, validation, dashboards
+- [ ] Success, failure, and pending validation feedback states are explicitly designed
+- [ ] Loading, empty, and error states are defined for every data-driven screen
+- [ ] Dashboard readability standards defined (labels, legends, thresholds, summaries)
+- [ ] Business outcome mapping defined (workforce visibility, staffing, skill development)
 - [ ] Migration path to real APIs/databases documented
 
 ## Project Structure

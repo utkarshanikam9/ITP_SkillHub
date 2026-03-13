@@ -69,7 +69,10 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T006 [P] Implement role model/permission guards for Employee, Manager, Admin, Leadership
 - [ ] T007 Select and wire state strategy (Context API or Zustand) with typed stores
 - [ ] T008 Create reusable chart wrappers using Recharts or Chart.js
-- [ ] T009 Configure linting, type-checking, and test commands
+- [ ] T009 Define shared UX interaction patterns for forms, navigation, validation, dashboards
+- [ ] T010 Define standard feedback handling for success/failure/pending validation states
+- [ ] T011 Define loading/empty/error state requirements for all data-driven screens
+- [ ] T012 Configure linting, type-checking, and test commands
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -85,17 +88,21 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Unit test for service contract in tests/unit/[feature].service.test.ts
-- [ ] T011 [P] [US1] Integration test for role-based journey in tests/integration/[feature].flow.test.tsx
+- [ ] T013 [P] [US1] Unit test for service contract in tests/unit/[feature].service.test.ts
+- [ ] T014 [P] [US1] Integration test for role-based journey in tests/integration/[feature].flow.test.tsx
+- [ ] T015 [P] [US1] Integration test for loading/empty/error and feedback states in tests/integration/[feature].states.test.tsx
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create or extend typed models in src/models/[entity].ts
-- [ ] T013 [P] [US1] Implement mock service in src/services/[feature]Service.ts
-- [ ] T014 [US1] Implement state wiring in src/state/[feature]Store.ts or feature context
-- [ ] T015 [US1] Implement feature UI in src/features/[feature]/components/[View].tsx
-- [ ] T016 [US1] Add role-aware visibility/interaction rules
-- [ ] T017 [US1] Add chart rendering with reusable wrapper (if analytics involved)
+- [ ] T016 [P] [US1] Create or extend typed models in src/models/[entity].ts
+- [ ] T017 [P] [US1] Implement mock service in src/services/[feature]Service.ts
+- [ ] T018 [US1] Implement state wiring in src/state/[feature]Store.ts or feature context
+- [ ] T019 [US1] Implement feature UI in src/features/[feature]/components/[View].tsx
+- [ ] T020 [US1] Add role-aware visibility/interaction rules
+- [ ] T021 [US1] Implement success/failure/pending validation feedback behaviors
+- [ ] T022 [US1] Implement loading/empty/error states for all data-driven screens
+- [ ] T023 [US1] Add chart rendering with reusable wrapper and readability annotations (if analytics involved)
+- [ ] T024 [US1] Map delivered story behavior to declared business outcome(s)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -109,15 +116,18 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T018 [P] [US2] Unit test for mock service behavior in tests/unit/[feature].service.test.ts
-- [ ] T019 [P] [US2] Integration test for role journey in tests/integration/[feature].flow.test.tsx
+- [ ] T025 [P] [US2] Unit test for mock service behavior in tests/unit/[feature].service.test.ts
+- [ ] T026 [P] [US2] Integration test for role journey in tests/integration/[feature].flow.test.tsx
+- [ ] T027 [P] [US2] Integration test for feedback and screen-state behavior in tests/integration/[feature].states.test.tsx
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Extend typed model(s) in src/models/[entity].ts
-- [ ] T021 [US2] Implement feature service logic in src/services/[service].ts
-- [ ] T022 [US2] Implement role-based UI in src/features/[feature]/components/[View].tsx
-- [ ] T023 [US2] Integrate state and shared components without cross-story coupling
+- [ ] T028 [P] [US2] Extend typed model(s) in src/models/[entity].ts
+- [ ] T029 [US2] Implement feature service logic in src/services/[service].ts
+- [ ] T030 [US2] Implement role-based UI in src/features/[feature]/components/[View].tsx
+- [ ] T031 [US2] Apply shared form/navigation/validation interaction patterns
+- [ ] T032 [US2] Integrate state and shared components without cross-story coupling
+- [ ] T033 [US2] Map delivered story behavior to declared business outcome(s)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -131,14 +141,17 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T024 [P] [US3] Unit test for chart adapter/view model in tests/unit/[feature].chart.test.ts
-- [ ] T025 [P] [US3] Integration test for analytics flow in tests/integration/[feature].analytics.test.tsx
+- [ ] T034 [P] [US3] Unit test for chart adapter/view model in tests/unit/[feature].chart.test.ts
+- [ ] T035 [P] [US3] Integration test for analytics flow in tests/integration/[feature].analytics.test.tsx
+- [ ] T036 [P] [US3] Integration test for analytics readability and decision-summary cues in tests/integration/[feature].readability.test.tsx
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Extend or create model(s) in src/models/[entity].ts
-- [ ] T027 [US3] Implement or update service in src/services/[service].ts
-- [ ] T028 [US3] Implement analytics UI in src/features/[feature]/components/[View].tsx
+- [ ] T037 [P] [US3] Extend or create model(s) in src/models/[entity].ts
+- [ ] T038 [US3] Implement or update service in src/services/[service].ts
+- [ ] T039 [US3] Implement analytics UI in src/features/[feature]/components/[View].tsx
+- [ ] T040 [US3] Add readability-focused labels, legends, thresholds, and summaries
+- [ ] T041 [US3] Map analytics behavior to business outcome decision points
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -156,6 +169,9 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX Code cleanup and refactoring for component/service boundaries
 - [ ] TXXX Validate API migration readiness for mock service contracts
 - [ ] TXXX [P] Add/expand unit and integration tests for role-based UX
+- [ ] TXXX [P] Validate UX interaction consistency across forms/navigation/validation
+- [ ] TXXX Validate loading/empty/error and success/failure/pending behavior coverage
+- [ ] TXXX Validate business outcome traceability for each delivered story
 - [ ] TXXX Accessibility and responsive behavior validation
 - [ ] TXXX Validate type-check, lint, and test suite execution
 
