@@ -1,0 +1,284 @@
+openapi: 3.0.3
+info:
+  title: Skill Matrix System API Contract (Prototype-aligned)
+  version: 0.1.0
+servers:
+  - url: https://api.example.com
+paths:
+  /skills:
+    get:
+      summary: List active skills with optional taxonomy filters
+      parameters:
+        - in: query
+          name: categoryId
+          schema:
+            type: string
+        - in: query
+          name: subcategoryId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Skill list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+  /employees:
+    get:
+      summary: Search employees by skill criteria
+      parameters:
+        - in: query
+          name: skillId
+          schema:
+            type: string
+        - in: query
+          name: proficiencyLevelId
+          schema:
+            type: string
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: minYearsExperience
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Filtered employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+  /employees/{employeeId}/skills:
+    post:
+      summary: Add a self-declared skill entry for an employee
+      parameters:
+        - in: path
+          name: employeeId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeSkillEntryUpsert'
+      responses:
+        '201':
+          description: Created skill entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeSkillEntry'
+  /employees/{employeeId}/skills/{entryId}/validate:
+    post:
+      summary: Manager validation decision for employee skill entry
+      parameters:
+        - in: path
+          name: employeeId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: entryId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status, validatorId]
+              properties:
+                status:
+                  type: string
+                  enum: [verified, needs-evidence, rejected]
+                validatorId:
+                  type: string
+                note:
+                  type: string
+      responses:
+        '200':
+          description: Updated skill entry with validation metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeSkillEntry'
+  /analytics/reports:
+    get:
+      summary: Retrieve analytics report by type
+      parameters:
+        - in: query
+          name: reportType
+          required: true
+          schema:
+            type: string
+            enum: [skill-gap, team-capability, distribution, project-match]
+      responses:
+        '200':
+          description: Capability report payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapabilityReport'
+components:
+  schemas:
+    ProficiencyLevel:
+      type: object
+      required: [id, code, label, rank, description, isActive]
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+          enum: [L1, L2, L3, L4, L5]
+        label:
+          type: string
+        rank:
+          type: integer
+        description:
+          type: string
+        isActive:
+          type: boolean
+    Skill:
+      type: object
+      required: [id, name, description, categoryId, subcategoryId, isActive]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        categoryId:
+          type: string
+        subcategoryId:
+          type: string
+        isActive:
+          type: boolean
+        defaultProficiencyScale:
+          type: array
+          items:
+            type: string
+    Certification:
+      type: object
+      required: [id, employeeId, skillId, title, issuer, issueDate, verificationStatus]
+      properties:
+        id:
+          type: string
+        employeeId:
+          type: string
+        skillId:
+          type: string
+        title:
+          type: string
+        issuer:
+          type: string
+        issueDate:
+          type: string
+          format: date
+        expiryDate:
+          type: string
+          format: date
+          nullable: true
+        documentUrl:
+          type: string
+        verificationStatus:
+          type: string
+          enum: [pending, verified, rejected]
+    EmployeeSkillEntry:
+      type: object
+      required: [id, employeeId, skillId, declaredLevel, yearsOfExperience, status]
+      properties:
+        id:
+          type: string
+        employeeId:
+          type: string
+        skillId:
+          type: string
+        declaredLevel:
+          type: string
+        yearsOfExperience:
+          type: number
+        projectContext:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [self-declared, verified, needs-evidence, rejected]
+        validatedBy:
+          type: string
+          nullable: true
+        validatedAt:
+          type: string
+          format: date-time
+          nullable: true
+    EmployeeSkillEntryUpsert:
+      type: object
+      required: [skillId, declaredLevel, yearsOfExperience]
+      properties:
+        skillId:
+          type: string
+        declaredLevel:
+          type: string
+        yearsOfExperience:
+          type: number
+        projectContext:
+          type: string
+          nullable: true
+    Employee:
+      type: object
+      required: [id, fullName, email, department, role]
+      properties:
+        id:
+          type: string
+        fullName:
+          type: string
+        email:
+          type: string
+        department:
+          type: string
+        role:
+          type: string
+          enum: [Employee, Manager, Admin, Leadership]
+        managerId:
+          type: string
+          nullable: true
+        skillEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeSkillEntry'
+    CapabilityReport:
+      type: object
+      required: [id, reportType, generatedBy, generatedAt, summary, chartSeries]
+      properties:
+        id:
+          type: string
+        reportType:
+          type: string
+          enum: [skill-gap, team-capability, distribution, project-match]
+        generatedBy:
+          type: string
+        generatedAt:
+          type: string
+          format: date-time
+        filters:
+          type: object
+          additionalProperties: true
+        summary:
+          type: object
+          additionalProperties: true
+        chartSeries:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
