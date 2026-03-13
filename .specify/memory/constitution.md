@@ -22,7 +22,10 @@ Sync Impact Report:
 -->
 
 # Skill Matrix System Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+
+## Normative Language
+- **MUST**: non-negotiable requirement
+- **SHOULD**: strongly recommended; exceptions require justification in the PR/complexity tracker
 
 ## Core Principles
 
