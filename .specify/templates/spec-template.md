@@ -95,6 +95,22 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Role-Based Experience Requirements *(mandatory for this project)*
+
+- Define explicit permissions and UX differences for Employee, Manager, Admin,
+  and Leadership.
+- Each role MUST have at least one acceptance scenario tied to a business goal.
+- Any shared screen with role-specific behavior MUST document visibility/edit rules.
+
+### Data & Service Contract Requirements *(mandatory for this project)*
+
+- Features MUST define typed entities for Skill, Employee, Certification,
+  and ProficiencyLevel (plus additional entities when needed).
+- Data retrieval MUST be described via mock service contracts, not component-level
+  JSON access.
+- Service contract fields intended for future backend integration MUST be marked
+  as stable or provisional.
+
 ### Key Entities *(include if feature involves data)*
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]
@@ -113,3 +129,12 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+
+### Constitution Alignment Outcomes *(mandatory for this project)*
+
+- **SC-005**: 100% of delivered stories show explicit compliance with architecture,
+  state management, and service-boundary principles.
+- **SC-006**: Role-based flows for Employee, Manager, Admin, and Leadership pass
+  independently testable acceptance criteria.
+- **SC-007**: Analytics visualizations are implemented with Recharts or Chart.js
+  using reusable wrappers, with no direct raw payload binding in UI components.

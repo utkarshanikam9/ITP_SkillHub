@@ -8,7 +8,8 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: The examples below include test tasks. Tests are expected for critical and
+role-based user journeys unless explicitly deferred in the specification.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -20,10 +21,11 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **React + TypeScript app**: `src/`, `public/`, `tests/` at repository root
+- **Feature modules**: `src/features/<feature>/components|models|services|state`
+- **Shared modules**: `src/components/`, `src/models/`, `src/services/`, `src/state/`
+- **Mock data**: `public/mocks/` or `src/services/mocks/`
+- Paths shown below assume React + TypeScript prototype structure
 
 <!-- 
   ============================================================================
@@ -62,12 +64,12 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T004 Define typed core entities (Skill, Employee, Certification, ProficiencyLevel)
+- [ ] T005 [P] Establish mock API service layer and async/error simulation patterns
+- [ ] T006 [P] Implement role model/permission guards for Employee, Manager, Admin, Leadership
+- [ ] T007 Select and wire state strategy (Context API or Zustand) with typed stores
+- [ ] T008 Create reusable chart wrappers using Recharts or Chart.js
+- [ ] T009 Configure linting, type-checking, and test commands
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -83,17 +85,17 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T010 [P] [US1] Unit test for service contract in tests/unit/[feature].service.test.ts
+- [ ] T011 [P] [US1] Integration test for role-based journey in tests/integration/[feature].flow.test.tsx
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T012 [P] [US1] Create or extend typed models in src/models/[entity].ts
+- [ ] T013 [P] [US1] Implement mock service in src/services/[feature]Service.ts
+- [ ] T014 [US1] Implement state wiring in src/state/[feature]Store.ts or feature context
+- [ ] T015 [US1] Implement feature UI in src/features/[feature]/components/[View].tsx
+- [ ] T016 [US1] Add role-aware visibility/interaction rules
+- [ ] T017 [US1] Add chart rendering with reusable wrapper (if analytics involved)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -107,15 +109,15 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T018 [P] [US2] Unit test for mock service behavior in tests/unit/[feature].service.test.ts
+- [ ] T019 [P] [US2] Integration test for role journey in tests/integration/[feature].flow.test.tsx
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T020 [P] [US2] Extend typed model(s) in src/models/[entity].ts
+- [ ] T021 [US2] Implement feature service logic in src/services/[service].ts
+- [ ] T022 [US2] Implement role-based UI in src/features/[feature]/components/[View].tsx
+- [ ] T023 [US2] Integrate state and shared components without cross-story coupling
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -129,14 +131,14 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T024 [P] [US3] Unit test for chart adapter/view model in tests/unit/[feature].chart.test.ts
+- [ ] T025 [P] [US3] Integration test for analytics flow in tests/integration/[feature].analytics.test.tsx
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T026 [P] [US3] Extend or create model(s) in src/models/[entity].ts
+- [ ] T027 [US3] Implement or update service in src/services/[service].ts
+- [ ] T028 [US3] Implement analytics UI in src/features/[feature]/components/[View].tsx
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -150,12 +152,12 @@ Examples of foundational tasks (adjust based on your project):
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] TXXX [P] Documentation updates in docs/
-- [ ] TXXX Code cleanup and refactoring
-- [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
-- [ ] TXXX Run quickstart.md validation
+- [ ] TXXX [P] Documentation updates in specs/ and feature notes
+- [ ] TXXX Code cleanup and refactoring for component/service boundaries
+- [ ] TXXX Validate API migration readiness for mock service contracts
+- [ ] TXXX [P] Add/expand unit and integration tests for role-based UX
+- [ ] TXXX Accessibility and responsive behavior validation
+- [ ] TXXX Validate type-check, lint, and test suite execution
 
 ---
 
@@ -199,12 +201,12 @@ Examples of foundational tasks (adjust based on your project):
 
 ```bash
 # Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+Task: "Unit test for service contract in tests/unit/[feature].service.test.ts"
+Task: "Integration test for role-based journey in tests/integration/[feature].flow.test.tsx"
 
 # Launch all models for User Story 1 together:
-Task: "Create [Entity1] model in src/models/[entity1].py"
-Task: "Create [Entity2] model in src/models/[entity2].py"
+Task: "Create or extend typed model in src/models/[entity].ts"
+Task: "Implement mock service in src/services/[feature]Service.ts"
 ```
 
 ---

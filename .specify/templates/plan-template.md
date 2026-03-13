@@ -17,21 +17,27 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: [TypeScript (React) or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [React, state library (Context API or Zustand), chart library (Recharts or Chart.js)]  
+**Storage**: [Prototype: local JSON mock datasets; Production path: API + database integration]  
+**Testing**: [e.g., Vitest, React Testing Library, Playwright/Cypress or NEEDS CLARIFICATION]  
+**Target Platform**: [Modern web browsers, responsive desktop/mobile]
+**Project Type**: [Web application (frontend prototype)]  
+**Performance Goals**: [e.g., analytics views render in <2s with mock data at target scale]  
+**Constraints**: [Role-based UX parity, strict UI-model-service separation, typed contracts]  
+**Scale/Scope**: [e.g., org-level skill matrix across Employee/Manager/Admin/Leadership roles]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] Modular architecture defined (feature folders + reusable components)
+- [ ] UI, domain models, and services are separated by file/module boundaries
+- [ ] Mock data access only through API-simulated service layer
+- [ ] State management approach selected (Context API or Zustand) and justified
+- [ ] Analytics approach selected (Recharts or Chart.js) with reusable wrappers
+- [ ] Role-based UX coverage defined for Employee, Manager, Admin, Leadership
+- [ ] Migration path to real APIs/databases documented
 
 ## Project Structure
 
@@ -56,39 +62,30 @@ specs/[###-feature]/
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
+├── app/
+├── components/
+│   ├── common/
+│   └── charts/
+├── features/
+│   └── [feature-name]/
+│       ├── components/
+│       ├── hooks/
+│       ├── models/
+│       ├── services/
+│       └── state/
 ├── models/
 ├── services/
-├── cli/
-└── lib/
+├── state/
+└── types/
+
+public/
+└── mocks/
 
 tests/
-├── contract/
+├── unit/
 ├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+└── e2e/
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real

@@ -1,20 +1,24 @@
 <!--
 Sync Impact Report:
-- Version change: 0.0.0 (Template) → 1.0.0
-- Modified principles: 
-    - [PRINCIPLE_1_NAME] → I. Code Quality & Clean Architecture
-    - [PRINCIPLE_2_NAME] → II. Comprehensive Testing Standards
-    - [PRINCIPLE_3_NAME] → III. User-Centric Design & Experience (UX)
-    - [PRINCIPLE_4_NAME] → IV. Architectural Consistency & Standardization
-    - [PRINCIPLE_5_NAME] → V. Performance & Scalability First
-- Added sections: Performance Standards, Quality Gates
-- Removed sections: N/A
+- Version change: 1.0.0 -> 2.0.0
+- Modified principles:
+    - I. Code Quality & Clean Architecture -> I. Modular & Maintainable Frontend Architecture
+    - II. Comprehensive Testing Standards -> II. Separation of UI, Domain Models, and Services
+    - III. User-Centric Design & Experience (UX) -> III. API-Simulated Mock Data Services
+    - IV. Architectural Consistency & Standardization -> IV. Governed State Management
+    - V. Performance & Scalability First -> V. Standardized Skill Analytics Visualization
+    - Added VI. Role-Based User Experience Integrity
+    - Added VII. Prototype-to-Production Scalability
+- Added sections: Technology Standards, Delivery & Quality Gates
+- Removed sections: Performance Standards, Quality Gates
 - Templates requiring updates:
-    - .specify/templates/plan-template.md (✅ updated - alignment checked)
-    - .specify/templates/spec-template.md (✅ updated - alignment checked)
-    - .specify/templates/tasks-template.md (✅ updated - alignment checked)
-- Follow-up TODOs: 
-    - TODO(RATIFICATION_DATE): Confirm original adoption date.
+    - .specify/templates/plan-template.md (✅ updated)
+    - .specify/templates/spec-template.md (✅ updated)
+    - .specify/templates/tasks-template.md (✅ updated)
+    - .specify/templates/commands/*.md (✅ not present; no action required)
+    - .github/agents/*.md (✅ checked; no outdated agent-specific naming found)
+- Follow-up TODOs:
+    - TODO(RATIFICATION_DATE): Original ratification date was not available in repo history.
 -->
 
 # Skill Matrix System Constitution
@@ -22,34 +26,94 @@ Sync Impact Report:
 
 ## Core Principles
 
-### I. Code Quality & Clean Architecture
-Every feature MUST adhere to clean architecture principles. Code must be self-documenting, modular, and maintainable. We prioritize readability over cleverness. Domain logic must be isolated from infrastructure concerns (DB, API, external services). Refactoring is a continuous process, not a separate task.
+### I. Modular & Maintainable Frontend Architecture
+All features MUST be implemented as small, composable modules with single-purpose
+responsibilities. Components, hooks, utilities, and services MUST remain focused,
+readable, and easy to refactor. Feature delivery that introduces avoidable coupling,
+duplicated logic, or unclear ownership is non-compliant.
 
-### II. Comprehensive Testing Standards
-TDD (Test-Driven Development) is SHOULD practice; Automated testing is MUST. Every new feature or bug fix MUST include unit tests covering edge cases. Integration and contract tests are REQUIRED for any inter-service communication or critical user journeys (P1 stories). Coverage must be maintained or improved with every PR.
+Rationale: maintainability and predictable iteration speed are mandatory for a
+prototype expected to evolve into production architecture.
 
-### III. User-Centric Design & Experience (UX)
-User experience is non-negotiable. Every interface (Web, CLI, or API) MUST be intuitive and responsive. UI components MUST follow a consistent design system. Error messages MUST be human-readable and actionable. User feedback and scenarios from the specification MUST drive the implementation details.
+### II. Separation of UI, Domain Models, and Services
+Presentation logic MUST stay in UI layers, domain/data definitions MUST stay in
+typed model modules, and data retrieval/transformation MUST stay in service modules.
+React components MUST NOT embed raw mock payloads, parsing rules, or business rules.
 
-### IV. Architectural Consistency & Standardization
-We maintain a unified tech stack and directory structure to ensure cross-team mobility. Shared libraries, patterns (like Repository or Service patterns), and naming conventions MUST be followed. Any deviation from the standard project structure defined in `plan.md` MUST be explicitly justified in the complexity tracker.
+Rationale: strict layering allows independent testing and smooth replacement of mock
+services with real APIs later.
 
-### V. Performance & Scalability First
-System performance is a core requirement. API responses MUST meet defined latency targets (e.g., <2s for search/reporting). Scalability must be considered at the design phase; we build for thousands of users and millions of skill records. Resource-intensive operations MUST be optimized or handled asynchronously.
+### III. API-Simulated Mock Data Services
+Prototype data access MUST be implemented through mock services that simulate API
+behavior, including async response patterns, predictable error paths, and typed
+contracts. Direct JSON imports inside feature components are prohibited except in
+service implementation modules.
 
-## Performance Standards
-- **Latency**: Core search and reporting features must respond within 2 seconds.
-- **Resource Efficiency**: Optimize database queries and minimize frontend bundle sizes.
-- **Concurrency**: The system must handle multiple concurrent users updating profiles and searching without data corruption.
+Rationale: realistic service boundaries de-risk backend integration and prevent
+frontend architecture debt.
 
-## Quality Gates
-- **Linting & Formatting**: All code must pass `eslint` (frontend) and `flake8/black` (backend) before PR submission.
-- **Test Success**: 100% of the test suite must pass for any code to be merged.
-- **Documentation**: All public APIs and core logic must have up-to-date documentation in the code and relevant `spec.md`.
+### IV. Governed State Management
+Shared application state MUST use either React Context API or Zustand. The selected
+store pattern for a feature MUST be documented in the plan and applied consistently.
+State updates MUST be predictable and typed; ad hoc global mutable state is forbidden.
+
+Rationale: explicit state governance reduces regression risk across role-based flows.
+
+### V. Standardized Skill Analytics Visualization
+Skill analytics views MUST use Recharts or Chart.js through reusable chart adapters
+or wrapper components. Visualizations MUST consume typed view models rather than raw
+service payloads. Chart behavior and axis semantics MUST be documented in specs.
+
+Rationale: standard charting patterns keep analytics maintainable and consistent.
+
+### VI. Role-Based User Experience Integrity
+Employee, Manager, Admin, and Leadership experiences MUST be explicitly modeled in
+requirements, UI flows, and acceptance criteria. Role visibility, permissions, and
+navigation differences MUST be testable and enforced in implementation.
+
+Rationale: the product value depends on clear role-specific journeys and safeguards.
+
+### VII. Prototype-to-Production Scalability
+All prototype interfaces, models, and services MUST be designed for migration to real
+APIs and persistent storage without major UI rewrites. Service contracts, identifier
+strategy, and pagination/filtering semantics MUST anticipate production needs.
+
+Rationale: prototype work must accelerate, not block, production readiness.
+
+## Technology Standards
+
+- Frontend stack MUST be React + TypeScript.
+- Domain entities MUST include, at minimum: Skill, Employee, Certification,
+    and ProficiencyLevel.
+- Mock datasets MUST be valid JSON and consumed through typed service boundaries.
+- State sharing MUST use Context API or Zustand per feature decision.
+- Analytics UI MUST use Recharts or Chart.js.
+
+## Delivery & Quality Gates
+
+- Every specification MUST include role-based user scenarios and independent tests.
+- Every implementation plan MUST include a Constitution Check with explicit pass/fail
+    gates for architecture, state management, mock services, and visualization choices.
+- Every task plan MUST include tasks for models, services, role-based UI, state
+    management wiring, and analytics rendering.
+- Linting, type-checking, and automated tests MUST pass before merge.
 
 ## Governance
-This Constitution supersedes all other local development practices. Amendments require a version bump and updates to the Sync Impact Report. All Pull Requests and Reviews MUST verify compliance with these principles. Use `requirement.md` as the source of truth for high-level project goals.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE) | **Last Amended**: 2026-03-12
+This Constitution supersedes local feature conventions and planning assumptions.
+Amendments require: (1) documented rationale, (2) semantic version update,
+(3) synchronization of affected templates, and (4) an updated Sync Impact Report.
+
+Versioning policy:
+- MAJOR: incompatible governance or principle redefinition/removal.
+- MINOR: new principle/section or materially expanded mandates.
+- PATCH: wording clarifications and non-semantic refinements.
+
+Compliance review expectations:
+- Pull requests MUST reference applicable constitutional principles.
+- Reviewers MUST block changes that violate any MUST requirement.
+- Deviations require explicit justification in the plan Complexity Tracking table.
+
+**Version**: 2.0.0 | **Ratified**: TODO(RATIFICATION_DATE) | **Last Amended**: 2026-03-13
 
 <!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
